@@ -1,38 +1,33 @@
 class Solution {
 
-    Map<Integer, Integer> mp = new HashMap<>();
-    int maxD = 0;
+    class Pair {
+        int depth;
+        TreeNode node;
 
-    TreeNode LCA(TreeNode root) {
-        if (root == null || mp.getOrDefault(root.val, -1) == maxD) {
-            return root;
+        Pair(int depth, TreeNode node) {
+            this.depth = depth;
+            this.node = node;
         }
-
-        TreeNode l = LCA(root.left);
-        TreeNode r = LCA(root.right);
-
-        if (l != null && r != null) {
-            return root;
-        }
-
-        return l != null ? l : r;
     }
 
-    void depth(TreeNode root, int d) {
+    Pair solve(TreeNode root) {
         if (root == null) {
-            return;
+            return new Pair(0, null);
         }
 
-        maxD = Math.max(maxD, d);
-        mp.put(root.val, d);
-        depth(root.left, d + 1);
-        depth(root.right, d + 1);
+        Pair l = solve(root.left);
+        Pair r = solve(root.right);
+
+        if (l.depth == r.depth) {
+            return new Pair(l.depth + 1, root);
+        } else if (l.depth > r.depth) {
+            return new Pair(l.depth + 1, l.node);
+        } else {
+            return new Pair(r.depth + 1, r.node);
+        }
     }
 
-    // T.C : O(n)
-    // S.C : O(maxD) system recursion stack space
     public TreeNode lcaDeepestLeaves(TreeNode root) {
-        depth(root, 0);
-        return LCA(root);
+        return solve(root).node;
     }
 }
