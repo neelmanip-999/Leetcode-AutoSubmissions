@@ -26,8 +26,8 @@ class Solution {
         nn.val = postorder[phi];
         int idx = Search(inorder, ilo, ihi, postorder[phi]);
         int ne = idx - ilo;
-        nn.left = build(postorder, plo, plo + ne - 1, inorder, ilo, idx - 1);
-        nn.right = build(postorder, plo + ne, phi - 1, inorder, idx + 1, ihi);
+        nn.left = build(postorder, plo, plo + ne - 1, inorder, ilo, ilo+ne);
+        nn.right = build(postorder, plo + ne, phi - 1, inorder, ilo+ne+1, ihi);
         return nn;
     }
 
