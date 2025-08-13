@@ -15,26 +15,21 @@
  */
 class Solution {
     public void flatten(TreeNode root) {
-        if (root == null) {
-            return;
-        }
-        ArrayList<Integer> ans = new ArrayList<>();
-        Preorder(root, ans);
-
-        TreeNode curr = root;
-        for (int i = 1; i < ans.size(); i++) {
-            curr.left = null;
-            curr.right = new TreeNode(ans.get(i));
-            curr = curr.right;
-        }
+        MakeLL(root);
     }
 
-    public void Preorder(TreeNode root, ArrayList<Integer> ans) {
-        if (root == null) {
-            return;
+    public TreeNode MakeLL(TreeNode root){
+        if(root == null) return null;
+        if(root.left == null && root.right == null) return root;
+        TreeNode left_tail = MakeLL(root.left);
+        TreeNode right_tail = MakeLL(root.right);
+
+        if(root.left != null){
+            left_tail.right = root.right;
+            root.right = root.left;
+            root.left = null; 
         }
-        ans.add(root.val);
-        Preorder(root.left, ans);
-        Preorder(root.right, ans);
+
+        return right_tail != null ? right_tail : left_tail;
     }
 }
