@@ -35,16 +35,7 @@ class Solution {
         }
         return width;
     }
-    // class Pair{
-    //     TreeNode node;
-    //     int idx;
-    //     public Pair(TreeNode node, int idx){
-    //         this.idx = idx;
-    //         this.node = node;
-    //     }
-    // }
-}
-class Pair{
+    class Pair{
         TreeNode node;
         int idx;
         public Pair(TreeNode node, int idx){
@@ -52,4 +43,4 @@ class Pair{
             this.node = node;
         }
     }
-
+}
