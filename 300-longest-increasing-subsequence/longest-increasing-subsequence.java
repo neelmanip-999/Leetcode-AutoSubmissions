@@ -10,8 +10,9 @@ class Solution {
                 }
             }
         }
-        Arrays.sort(temp);
-        return temp[temp.length-1];
+        // Arrays.sort(temp);
+        // return temp[temp.length-1];
+        return Arrays.stream(temp).max().getAsInt();
     }
 }
 
