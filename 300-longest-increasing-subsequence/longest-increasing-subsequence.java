@@ -1,24 +1,18 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        return LIS(nums);
-    }
-
-    public int LIS(int[] arr){
-        int n = arr.length;
-        int[] lis = new int[n];
-        Arrays.fill(lis, 1);
-        for(int i = 0; i<n; i++){
+        int[] temp = new int[nums.length];
+        Arrays.fill(temp, 1);
+        for(int i = 0; i<nums.length; i++){
             for(int j = i-1; j>=0; j--){
-                if(arr[i] > arr[j]){
-                    int l = lis[j];
-                    lis[i] = Math.max(lis[i], l+1);
+                if(nums[j] < nums[i]){
+                    int x = temp[j];
+                    temp[i] = Math.max(temp[i], temp[j]+1);
                 }
             }
         }
-        int max = lis[0];
-        for(int i = 1; i<n; i++){
-            max = Math.max(max, lis[i]);
-        }
-        return max;
+        Arrays.sort(temp);
+        return temp[temp.length-1];
     }
 }
+
+
